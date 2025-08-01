@@ -83,19 +83,40 @@ class ResultVC: UIViewController {
             
             let numberOfImage: Int = 5
             let padding: CGFloat = 24
+            let overlap: CGFloat = 20
+            let lineWidth: CGFloat = 10
+            
             let width = frame.width - (padding * 2)
             let height = (frame.height - padding * 3) / 2
             let imageWidth = width / CGFloat(numberOfImage)
             
             let renderer = UIGraphicsImageRenderer(bounds: frame)
             let image = renderer.image { context in
-                func draw(images: [UIImage], startY: CGFloat) {
-                let frame1 = CGRect(x: padding, y: padding, width: width * 1/5, height: height)
+                func draw(startY: CGFloat) {
+                    for i in 1..<numberOfImage {
+                        if i == 0 {
+                            let firstFrame = CGRect(x: padding, y: startY, width: imageWidth, height: height)
+                            let firstImage = listImage[i]
+                            firstImage.draw(in: firstFrame)
+                        } else if i == numberOfImage - 1 {
+                            let lastFrame = CGRect(x: width * CGFloat(i/numberOfImage) + padding, y: startY, width: imageWidth, height: height)
+                            let lastImage = listImage[i]
+                            lastImage.draw(in: lastFrame)
+                        } else if i == numberOfImage // là chính giữa
+                        {
+                            
+                        } else {
+                                
+                    }
+                }
+                
+                
+                let frame1 = CGRect(x: padding, y: padding, width: imageWidth, height: height)
                 let firstImage = listImage.first!
                 firstImage.draw(in: frame1)
                 
                 let fifthImage = listImage[4]
-                let frame5 = CGRect(x: width * 4/5 + padding, y: padding, width: width * 1/5, height: height)
+                let frame5 = CGRect(x: width * 4/5 + padding, y: padding, width: imageWidth, height: height)
                 fifthImage.draw(in: frame5)
                 
                 let rectPath1 = UIBezierPath()
@@ -107,7 +128,7 @@ class ResultVC: UIViewController {
                 rectPath1.addClip()
                 
                 let secondImage = listImage[1]
-                let frame2 = CGRect(x: (width * 1/5) - 20 + padding, y: padding, width: width / 5 + 40, height: height)
+                let frame2 = CGRect(x: (width * 1/5) - 20 + padding, y: padding, width: imageWidth + 40, height: height)
                 secondImage.draw(in: frame2)
                 
                 UIGraphicsGetCurrentContext()?.resetClip()
@@ -121,7 +142,7 @@ class ResultVC: UIViewController {
                 rectPath2.addClip()
                 
                 let fourthImage = listImage[3]
-                let frame4 = CGRect(x: (width * 3/5) - 20 + padding, y: padding, width: width / 5 + 40, height: height)
+                let frame4 = CGRect(x: (width * 3/5) - 20 + padding, y: padding, width: imageWidth + 40, height: height)
                 fourthImage.draw(in: frame4)
                 
                 
@@ -137,11 +158,10 @@ class ResultVC: UIViewController {
                 rectPath3.addClip()
                 
                 let thirdImage = listImage[2]
-                let frame3 = CGRect(x: width * 2/5 - 20 + padding, y: padding, width: width * 1/5 + 40, height: height)
+                let frame3 = CGRect(x: width * 2/5 - 20 + padding, y: padding, width: imageWidth + 40, height: height)
                 thirdImage.draw(in: frame3)
                 
                 
-                // Bỏ clip đi để còn vẽ típ
                 UIGraphicsGetCurrentContext()?.resetClip()
                 
                 let borderPath = UIBezierPath()
@@ -214,7 +234,6 @@ class ResultVC: UIViewController {
                 third2Image.draw(in: frame23)
                 
                 
-                // Bỏ clip đi để còn vẽ típ
                 UIGraphicsGetCurrentContext()?.resetClip()
                 
                 let borderPath2 = UIBezierPath()
@@ -233,9 +252,6 @@ class ResultVC: UIViewController {
                 UIColor.blue3.setStroke()
                 borderPath2.lineWidth = 10
                 borderPath2.stroke()
-            }
-                draw(image: listImage, startY: padding)
-                draw(images: listImage, startY: padding * 2 + height)
             }
             finalImage = image
             photoStripImageView.image = image

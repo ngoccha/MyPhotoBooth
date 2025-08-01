@@ -13,7 +13,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let window = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first
-        let vc = MyPhotoBoothVC()
+        let vc = ChoosePhotoBoothVC()
         let naviVC = UINavigationController(rootViewController: vc)
         window?.rootViewController = naviVC
     }

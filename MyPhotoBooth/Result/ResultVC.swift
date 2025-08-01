@@ -81,59 +81,63 @@ class ResultVC: UIViewController {
         }  else {
             guard listImage.count == 5 else { return }
             
-            let textBoundHeight: CGFloat = 24
-            let width = frame.width - (textBoundHeight * 2)
-            let height = (frame.height - textBoundHeight * 3) / 2
+            let numberOfImage: Int = 5
+            let padding: CGFloat = 24
+            let width = frame.width - (padding * 2)
+            let height = (frame.height - padding * 3) / 2
+            let imageWidth = width / CGFloat(numberOfImage)
+            
             let renderer = UIGraphicsImageRenderer(bounds: frame)
             let image = renderer.image { context in
-                let frame1 = CGRect(x: textBoundHeight, y: textBoundHeight, width: width * 1/5, height: height)
+                func draw(images: [UIImage], startY: CGFloat) {
+                let frame1 = CGRect(x: padding, y: padding, width: width * 1/5, height: height)
                 let firstImage = listImage.first!
                 firstImage.draw(in: frame1)
                 
                 let fifthImage = listImage[4]
-                let frame5 = CGRect(x: width * 4/5 + textBoundHeight, y: textBoundHeight, width: width * 1/5, height: height)
+                let frame5 = CGRect(x: width * 4/5 + padding, y: padding, width: width * 1/5, height: height)
                 fifthImage.draw(in: frame5)
                 
                 let rectPath1 = UIBezierPath()
-                rectPath1.move(to: .init(x: (width * 1/5)-20 + textBoundHeight, y: textBoundHeight))
-                rectPath1.addLine(to: .init(x: width * 2/5 + 20 + textBoundHeight, y: textBoundHeight))
-                rectPath1.addLine(to: .init(x: width * 2/5 + textBoundHeight, y: height + textBoundHeight))
-                rectPath1.addLine(to: .init(x: width * 1/5 + textBoundHeight, y: height + textBoundHeight))
+                rectPath1.move(to: .init(x: (width * 1/5)-20 + padding, y: padding))
+                rectPath1.addLine(to: .init(x: width * 2/5 + 20 + padding, y: padding))
+                rectPath1.addLine(to: .init(x: width * 2/5 + padding, y: height + padding))
+                rectPath1.addLine(to: .init(x: width * 1/5 + padding, y: height + padding))
                 rectPath1.close()
                 rectPath1.addClip()
                 
                 let secondImage = listImage[1]
-                let frame2 = CGRect(x: (width * 1/5) - 20 + textBoundHeight, y: textBoundHeight, width: width / 5 + 40, height: height)
+                let frame2 = CGRect(x: (width * 1/5) - 20 + padding, y: padding, width: width / 5 + 40, height: height)
                 secondImage.draw(in: frame2)
                 
                 UIGraphicsGetCurrentContext()?.resetClip()
                 
                 let rectPath2 = UIBezierPath()
-                rectPath2.move(to: CGPoint(x: (width * 3/5) - 20 + textBoundHeight, y: textBoundHeight))
-                rectPath2.addLine(to: CGPoint(x: width * 4/5 + 20 + textBoundHeight, y: textBoundHeight))
-                rectPath2.addLine(to: CGPoint(x: width * 4/5 + textBoundHeight, y: height + textBoundHeight))
-                rectPath2.addLine(to: CGPoint(x: width * 3/5 + textBoundHeight, y: height + textBoundHeight))
+                rectPath2.move(to: CGPoint(x: (width * 3/5) - 20 + padding, y: padding))
+                rectPath2.addLine(to: CGPoint(x: width * 4/5 + 20 + padding, y: padding))
+                rectPath2.addLine(to: CGPoint(x: width * 4/5 + padding, y: height + padding))
+                rectPath2.addLine(to: CGPoint(x: width * 3/5 + padding, y: height + padding))
                 rectPath2.close()
                 rectPath2.addClip()
                 
                 let fourthImage = listImage[3]
-                let frame4 = CGRect(x: (width * 3/5) - 20 + textBoundHeight, y: textBoundHeight, width: width / 5 + 40, height: height)
+                let frame4 = CGRect(x: (width * 3/5) - 20 + padding, y: padding, width: width / 5 + 40, height: height)
                 fourthImage.draw(in: frame4)
                 
                 
                 UIGraphicsGetCurrentContext()?.resetClip()
                 
                 let rectPath3 = UIBezierPath()
-                rectPath3.move(to: CGPoint(x: width * 2/5 + textBoundHeight, y: textBoundHeight))
-                rectPath3.addLine(to: CGPoint(x: width * 3/5 + textBoundHeight, y: textBoundHeight))
-                rectPath3.addLine(to: CGPoint(x: width * 3/5 + 20 + textBoundHeight, y: height + textBoundHeight))
-                rectPath3.addLine(to: CGPoint(x: width * 2/5 - 20 + textBoundHeight, y: height + textBoundHeight))
+                rectPath3.move(to: CGPoint(x: width * 2/5 + padding, y: padding))
+                rectPath3.addLine(to: CGPoint(x: width * 3/5 + padding, y: padding))
+                rectPath3.addLine(to: CGPoint(x: width * 3/5 + 20 + padding, y: height + padding))
+                rectPath3.addLine(to: CGPoint(x: width * 2/5 - 20 + padding, y: height + padding))
                 rectPath3.close()
                 
                 rectPath3.addClip()
                 
                 let thirdImage = listImage[2]
-                let frame3 = CGRect(x: width * 2/5 - 20 + textBoundHeight, y: textBoundHeight, width: width * 1/5 + 40, height: height)
+                let frame3 = CGRect(x: width * 2/5 - 20 + padding, y: padding, width: width * 1/5 + 40, height: height)
                 thirdImage.draw(in: frame3)
                 
                 
@@ -141,17 +145,17 @@ class ResultVC: UIViewController {
                 UIGraphicsGetCurrentContext()?.resetClip()
                 
                 let borderPath = UIBezierPath()
-                borderPath.move(to: .init(x: (width * 1/5)-20 + textBoundHeight, y: textBoundHeight))
-                borderPath.addLine(to: .init(x: width * 1/5 + textBoundHeight, y: height + textBoundHeight))
+                borderPath.move(to: .init(x: (width * 1/5)-20 + padding, y: padding))
+                borderPath.addLine(to: .init(x: width * 1/5 + padding, y: height + padding))
                 
-                borderPath.move(to: .init(x: width * 2/5 + textBoundHeight, y: textBoundHeight))
-                borderPath.addLine(to: .init(x: width * 2/5 - 20 + textBoundHeight, y: height + textBoundHeight))
+                borderPath.move(to: .init(x: width * 2/5 + padding, y: padding))
+                borderPath.addLine(to: .init(x: width * 2/5 - 20 + padding, y: height + padding))
                 
-                borderPath.move(to: .init(x: width * 3/5 + textBoundHeight, y: textBoundHeight))
-                borderPath.addLine(to: .init(x: width * 3/5 + 20 + textBoundHeight, y: height + textBoundHeight))
+                borderPath.move(to: .init(x: width * 3/5 + padding, y: padding))
+                borderPath.addLine(to: .init(x: width * 3/5 + 20 + padding, y: height + padding))
                 
-                borderPath.move(to: .init(x: width * 4/5 + 20 + textBoundHeight, y: textBoundHeight))
-                borderPath.addLine(to: .init(x: width * 4/5 + textBoundHeight, y: height + textBoundHeight))
+                borderPath.move(to: .init(x: width * 4/5 + 20 + padding, y: padding))
+                borderPath.addLine(to: .init(x: width * 4/5 + padding, y: height + padding))
                 
                 UIColor.blue3.setStroke()
                 borderPath.lineWidth = 10
@@ -159,54 +163,54 @@ class ResultVC: UIViewController {
                 
                 
                 
-                let frame21 = CGRect(x: textBoundHeight, y: textBoundHeight * 2 + height, width: width * 1/5, height: height)
+                let frame21 = CGRect(x: padding, y: padding * 2 + height, width: width * 1/5, height: height)
                 let first2Image = listImage.first!
                 first2Image.draw(in: frame21)
                 
                 let fifth2Image = listImage[4]
-                let frame25 = CGRect(x: width * 4/5 + textBoundHeight, y: textBoundHeight * 2 + height, width: width * 1/5, height: height)
+                let frame25 = CGRect(x: width * 4/5 + padding, y: padding * 2 + height, width: width * 1/5, height: height)
                 fifth2Image.draw(in: frame25)
                 
                 let rectPath21 = UIBezierPath()
-                rectPath21.move(to: .init(x: (width * 1/5)-20 + textBoundHeight, y: textBoundHeight * 2 + height))
-                rectPath21.addLine(to: .init(x: width * 2/5 + 20 + textBoundHeight, y: textBoundHeight * 2 + height))
-                rectPath21.addLine(to: .init(x: width * 2/5 + textBoundHeight, y: height * 2 + textBoundHeight * 2))
-                rectPath21.addLine(to: .init(x: width * 1/5 + textBoundHeight, y: height * 2 + textBoundHeight * 2))
+                rectPath21.move(to: .init(x: (width * 1/5)-20 + padding, y: padding * 2 + height))
+                rectPath21.addLine(to: .init(x: width * 2/5 + 20 + padding, y: padding * 2 + height))
+                rectPath21.addLine(to: .init(x: width * 2/5 + padding, y: height * 2 + padding * 2))
+                rectPath21.addLine(to: .init(x: width * 1/5 + padding, y: height * 2 + padding * 2))
                 rectPath21.close()
                 rectPath21.addClip()
                 
                 let second2Image = listImage[1]
-                let frame22 = CGRect(x: (width * 1/5) - 20 + textBoundHeight, y: textBoundHeight + textBoundHeight + height, width: width / 5 + 40, height: height)
+                let frame22 = CGRect(x: (width * 1/5) - 20 + padding, y: padding + padding + height, width: width / 5 + 40, height: height)
                 second2Image.draw(in: frame22)
                 
                 UIGraphicsGetCurrentContext()?.resetClip()
                 
                 let rectPath22 = UIBezierPath()
-                rectPath22.move(to: CGPoint(x: (width * 3/5) - 20 + textBoundHeight, y: textBoundHeight + textBoundHeight + height))
-                rectPath22.addLine(to: CGPoint(x: width * 4/5 + 20 + textBoundHeight, y: textBoundHeight + textBoundHeight + height))
-                rectPath22.addLine(to: CGPoint(x: width * 4/5 + textBoundHeight, y: height + textBoundHeight + textBoundHeight + height))
-                rectPath22.addLine(to: CGPoint(x: width * 3/5 + textBoundHeight, y: height + textBoundHeight + textBoundHeight + height))
+                rectPath22.move(to: CGPoint(x: (width * 3/5) - 20 + padding, y: padding + padding + height))
+                rectPath22.addLine(to: CGPoint(x: width * 4/5 + 20 + padding, y: padding + padding + height))
+                rectPath22.addLine(to: CGPoint(x: width * 4/5 + padding, y: height + padding + padding + height))
+                rectPath22.addLine(to: CGPoint(x: width * 3/5 + padding, y: height + padding + padding + height))
                 rectPath22.close()
                 rectPath22.addClip()
                 
                 let fourth2Image = listImage[3]
-                let frame24 = CGRect(x: (width * 3/5) - 20 + textBoundHeight, y: textBoundHeight + textBoundHeight + height, width: width / 5 + 40, height: height)
+                let frame24 = CGRect(x: (width * 3/5) - 20 + padding, y: padding + padding + height, width: width / 5 + 40, height: height)
                 fourth2Image.draw(in: frame24)
                 
                 
                 UIGraphicsGetCurrentContext()?.resetClip()
                 
                 let rectPath23 = UIBezierPath()
-                rectPath23.move(to: CGPoint(x: width * 2/5 + textBoundHeight, y: textBoundHeight + textBoundHeight + height))
-                rectPath23.addLine(to: CGPoint(x: width * 3/5 + textBoundHeight, y: textBoundHeight + textBoundHeight + height))
-                rectPath23.addLine(to: CGPoint(x: width * 3/5 + 20 + textBoundHeight, y: height + textBoundHeight + textBoundHeight + height))
-                rectPath23.addLine(to: CGPoint(x: width * 2/5 - 20 + textBoundHeight, y: height + textBoundHeight + textBoundHeight + height))
+                rectPath23.move(to: CGPoint(x: width * 2/5 + padding, y: padding + padding + height))
+                rectPath23.addLine(to: CGPoint(x: width * 3/5 + padding, y: padding + padding + height))
+                rectPath23.addLine(to: CGPoint(x: width * 3/5 + 20 + padding, y: height + padding + padding + height))
+                rectPath23.addLine(to: CGPoint(x: width * 2/5 - 20 + padding, y: height + padding + padding + height))
                 rectPath23.close()
                 
                 rectPath23.addClip()
                 
                 let third2Image = listImage[2]
-                let frame23 = CGRect(x: width * 2/5 - 20 + textBoundHeight, y: textBoundHeight + textBoundHeight + height, width: width * 1/5 + 40, height: height)
+                let frame23 = CGRect(x: width * 2/5 - 20 + padding, y: padding + padding + height, width: width * 1/5 + 40, height: height)
                 third2Image.draw(in: frame23)
                 
                 
@@ -214,21 +218,24 @@ class ResultVC: UIViewController {
                 UIGraphicsGetCurrentContext()?.resetClip()
                 
                 let borderPath2 = UIBezierPath()
-                borderPath2.move(to: .init(x: (width * 1/5)-20 + textBoundHeight, y: textBoundHeight + textBoundHeight + height))
-                borderPath2.addLine(to: .init(x: width * 1/5 + textBoundHeight, y: height + textBoundHeight + textBoundHeight + height))
+                borderPath2.move(to: .init(x: (width * 1/5)-20 + padding, y: padding + padding + height))
+                borderPath2.addLine(to: .init(x: width * 1/5 + padding, y: height + padding + padding + height))
                 
-                borderPath2.move(to: .init(x: width * 2/5 + textBoundHeight, y: textBoundHeight + textBoundHeight + height))
-                borderPath2.addLine(to: .init(x: width * 2/5 - 20 + textBoundHeight, y: height + textBoundHeight + textBoundHeight + height))
+                borderPath2.move(to: .init(x: width * 2/5 + padding, y: padding + padding + height))
+                borderPath2.addLine(to: .init(x: width * 2/5 - 20 + padding, y: height + padding + padding + height))
                 
-                borderPath2.move(to: .init(x: width * 3/5 + textBoundHeight, y: textBoundHeight + textBoundHeight + height))
-                borderPath2.addLine(to: .init(x: width * 3/5 + 20 + textBoundHeight, y: height + textBoundHeight + textBoundHeight + height))
+                borderPath2.move(to: .init(x: width * 3/5 + padding, y: padding + padding + height))
+                borderPath2.addLine(to: .init(x: width * 3/5 + 20 + padding, y: height + padding + padding + height))
                 
-                borderPath2.move(to: .init(x: width * 4/5 + 20 + textBoundHeight, y: textBoundHeight + textBoundHeight + height))
-                borderPath2.addLine(to: .init(x: width * 4/5 + textBoundHeight, y: height + textBoundHeight + textBoundHeight + height))
+                borderPath2.move(to: .init(x: width * 4/5 + 20 + padding, y: padding + padding + height))
+                borderPath2.addLine(to: .init(x: width * 4/5 + padding, y: height + padding + padding + height))
                 
                 UIColor.blue3.setStroke()
                 borderPath2.lineWidth = 10
                 borderPath2.stroke()
+            }
+                draw(image: listImage, startY: padding)
+                draw(images: listImage, startY: padding * 2 + height)
             }
             finalImage = image
             photoStripImageView.image = image

@@ -6,24 +6,28 @@
 //
 
 import UIKit
+import AVFoundation
 
 class CameraVC: UIViewController {
-
+    
+    
+    private var previewLayer: AVCaptureVideoPreviewLayer! //layer dùng để preview cam lên màn chính
+    private let captureSession = AVCaptureSession() //bộ xử lý chính để lấy hình ảnh từ cam
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        configCamera()
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    private func configCamera() {
+        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front),
+              let input = try? AVCaptureDeviceInput(device: device) else { return }
+        //lấy cam trước làm auto + tạo input
+        captureSession.addInput(input) // gắn input vào session
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession) //tạo layer để hiển thị ảnh từ session
+        previewLayer.frame = cameraPreviewView.bounds
+        cameraPreviewView.layer.addSublayer(previewLayer) //thêm layer vào giao diện
+        captureSession.startRunning() //chạy camera
     }
-    */
-
 }

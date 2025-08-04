@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CameraVC" customModule="MyPhotoBooth" customModuleProvider="target">
             <connections>
+                <outlet property="cameraPreviewView" destination="mBj-yq-ewa" id="EMc-rE-ywo"/>
+                <outlet property="flashButton" destination="9ay-Kg-ZGr" id="qJw-ho-6pk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,10 +21,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FEe-Q3-MeC">
-                    <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                    <rect key="frame" x="0.0" y="143" width="393" height="616"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="1Zk-NR-N1d">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="666"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="616"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="279" translatesAutoresizingMaskIntoConstraints="NO" id="82z-Cl-HfS">
                                     <rect key="frame" x="27" y="0.0" width="339" height="30"/>
@@ -38,6 +40,9 @@
                                             <state key="normal" image="xmark" catalog="system">
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                             </state>
+                                            <connections>
+                                                <action selector="dismissButton:" destination="-1" eventType="touchUpInside" id="90h-0E-HrQ"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ay-Kg-ZGr">
                                             <rect key="frame" x="309" y="0.0" width="30" height="30"/>
@@ -46,6 +51,9 @@
                                             </constraints>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" image="Flash auto"/>
+                                            <connections>
+                                                <action selector="flashButton:" destination="-1" eventType="touchUpInside" id="73d-3I-eDo"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -53,27 +61,35 @@
                                     </constraints>
                                 </stackView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mBj-yq-ewa">
-                                    <rect key="frame" x="10" y="54.000000000000028" width="373" height="452.66666666666674"/>
+                                    <rect key="frame" x="10" y="54" width="373" height="394"/>
                                     <color key="backgroundColor" name="Background"/>
                                 </view>
-                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5Df-rd-LGU">
-                                    <rect key="frame" x="45" y="530.66666666666663" width="303" height="135.33333333333337"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5Df-rd-LGU">
+                                    <rect key="frame" x="45" y="472" width="303" height="144"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gH-zL-AeD">
-                                            <rect key="frame" x="0.0" y="60.666666666666742" width="55.333333333333336" height="14"/>
-                                            <state key="normal" title="Button"/>
-                                            <buttonConfiguration key="configuration" style="plain"/>
+                                            <rect key="frame" x="0.0" y="57" width="56" height="30"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" title="Choose"/>
+                                            <connections>
+                                                <action selector="chooseButton:" destination="-1" eventType="touchUpInside" id="dkw-Fj-Zqn"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="826-Dv-3LX">
-                                            <rect key="frame" x="55.333333333333329" y="29.666666666666742" width="202.33333333333337" height="76"/>
+                                            <rect key="frame" x="119" y="34" width="76" height="76"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="76" id="Us5-Vs-fMq"/>
                                             </constraints>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" image="Take"/>
+                                            <connections>
+                                                <action selector="shutterButton:" destination="-1" eventType="touchUpInside" id="4Lu-ID-SgT"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wnq-gE-9S9">
-                                            <rect key="frame" x="257.66666666666669" y="50.333333333333371" width="45.333333333333314" height="35"/>
+                                            <rect key="frame" x="257.66666666666669" y="54.666666666666629" width="45.333333333333314" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="Wnq-gE-9S9" secondAttribute="height" multiplier="31:24" id="Huq-zA-mE4"/>
                                                 <constraint firstAttribute="height" constant="35" id="PbO-EO-2nI"/>
@@ -81,12 +97,19 @@
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                             <state key="normal" image="arrow.triangle.2.circlepath.camera.fill" catalog="system"/>
+                                            <connections>
+                                                <action selector="changeCameraButton:" destination="-1" eventType="touchUpInside" id="4SR-bj-Ufd"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </stackView>
                             </subviews>
                             <constraints>
+                                <constraint firstItem="mBj-yq-ewa" firstAttribute="leading" secondItem="1Zk-NR-N1d" secondAttribute="leading" constant="10" id="RDy-lc-7Tw"/>
+                                <constraint firstItem="mBj-yq-ewa" firstAttribute="top" secondItem="82z-Cl-HfS" secondAttribute="bottom" constant="24" id="ZWH-4j-oDo"/>
                                 <constraint firstAttribute="trailing" secondItem="5Df-rd-LGU" secondAttribute="trailing" constant="45" id="cnj-AL-Dnj"/>
+                                <constraint firstAttribute="trailing" secondItem="mBj-yq-ewa" secondAttribute="trailing" constant="10" id="iC3-K8-hnv"/>
+                                <constraint firstItem="5Df-rd-LGU" firstAttribute="top" secondItem="mBj-yq-ewa" secondAttribute="bottom" constant="24" id="jxZ-pd-TAo"/>
                             </constraints>
                         </stackView>
                     </subviews>
@@ -103,9 +126,9 @@
             <color key="backgroundColor" name="Blue3"/>
             <constraints>
                 <constraint firstItem="FEe-Q3-MeC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="9hD-TD-5Ji"/>
+                <constraint firstItem="FEe-Q3-MeC" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-25" id="B2H-wt-8HV"/>
                 <constraint firstItem="FEe-Q3-MeC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Q1M-VV-NmA"/>
-                <constraint firstItem="FEe-Q3-MeC" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="25" id="eyb-HX-f6r"/>
-                <constraint firstItem="FEe-Q3-MeC" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="qKO-JP-tji"/>
+                <constraint firstItem="FEe-Q3-MeC" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="25" id="qKO-JP-tji"/>
             </constraints>
             <point key="canvasLocation" x="38.931297709923662" y="19.718309859154932"/>
         </view>

@@ -14,7 +14,7 @@ class MyPhotoBoothVC: UIViewController {
     
     @IBOutlet weak var chooseLayoutStackView: UIStackView!
     @IBOutlet weak var chooseCameraStackView: UIStackView!
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,10 +39,17 @@ class MyPhotoBoothVC: UIViewController {
     }
     
     @IBAction func chooseCamera(_ sender: Any) {
-        let resultVC = ResultVC()
-        resultVC.layout = self.layout
-        resultVC.isCamera = true
-        navigationController?.pushViewController(resultVC, animated: true)
+        let cameraVC = CameraVC()
+        cameraVC.onCapturePhoto = { [weak self] capturedImages in
+            guard let self = self else { return }
+            
+            let resultVC = ResultVC()
+            resultVC.layout = self.layout
+            resultVC.isCamera = true
+            resultVC.listImage = capturedImages
+            self.navigationController?.pushViewController(resultVC, animated: true)
+        }
+        self.navigationController?.pushViewController(cameraVC, animated: true)
     }
     
     @IBAction func chooseUpload(_ sender: Any) {

@@ -18,7 +18,7 @@ class ResultVC: UIViewController {
     
     private var finalImage: UIImage?
     private var didCreatePhotoStrip = false
-    private var listImage: [UIImage] = [] {
+    var listImage: [UIImage] = [] {
         didSet {
             if (layout == 4 && listImage.count == 4) || (layout == 5 && listImage.count == 5) {
                 drawResultImage()
@@ -40,10 +40,7 @@ class ResultVC: UIViewController {
             capturedCount = 0
             
             if isCamera == true {
-                let picker = UIImagePickerController()
-                picker.sourceType = .camera
-                picker.delegate = self
-                present(picker, animated: true)
+                drawResultImage()
             } else {
                 var config = PHPickerConfiguration()
                 config.selectionLimit = layout ?? 4
@@ -172,108 +169,131 @@ class ResultVC: UIViewController {
                             clipPath.close()
                             clipPath.addClip()
                         }
+                        
+                        
+                        let fittedFrame = aspectFilledRect(for: image.size, in: imageFrame)
+                        image.draw(in: fittedFrame)
+                        context.cgContext.restoreGState()
+                    }
+                    
+                    let border = UIBezierPath()
+                    border.lineWidth = 10
+                    UIColor.blue3.setStroke()
+                    
+                    for index in 1..<listImage.count {
+                        let y = startY
+                        let x = padding + imageWidth * CGFloat(index)
+                        
+                        if index == lastIndex {
+                            border.move(to: CGPoint(x: x, y: y))
+                            border.addLine(to: CGPoint(x: x - overlap, y: y + height))
+                        } else if index % 2 == 1 {
+                            border.move(to: CGPoint(x: x - overlap, y: y))
+                            border.addLine(to: CGPoint(x: x, y: y + height))
+                        } else {
+                            border.move(to: CGPoint(x: x, y: y))
+                            border.addLine(to: CGPoint(x: x - overlap, y: y + height))
+                        }
+                    }
+                    
+                    border.stroke()
+                    
+                }
+            }
+            
+            finalImage = image
+            photoStripImageView.image = image
+            didCreatePhotoStrip = true
+            createPhotoStripButton.titleLabel?.text! = "Save to library"
+            
+        }
+    }
+    
+//    func presentCameraVC() {
+//        let cameraVC = CameraVC()
+//        cameraVC.modalPresentationStyle = .fullScreen
+//
+//        cameraVC.onCapturePhoto = { [weak self] image in
+//            guard let self = self else { return }
+//
+//            self.listImage.append(contentsOf: image)
+//            self.capturedCount += 1
+//
+//            if let layoutCount = self.layout, self.capturedCount < layoutCount {
+////                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//                    self.presentCameraVC()
+////                }
+//            } else {
+//                self.drawResultImage()
+//            }
+//        }
+//
+//        present(cameraVC, animated: true)
+//    }
 
-                            
-                            let fittedFrame = aspectFilledRect(for: image.size, in: imageFrame)
-                            image.draw(in: fittedFrame)
-                            context.cgContext.restoreGState()
-                        }
-                        
-                        let border = UIBezierPath()
-                        border.lineWidth = 10
-                        UIColor.blue3.setStroke()
-                        
-                        for index in 1..<listImage.count {
-                            let y = startY
-                            let x = padding + imageWidth * CGFloat(index)
-                            
-                            if index == lastIndex {
-                                border.move(to: CGPoint(x: x, y: y))
-                                border.addLine(to: CGPoint(x: x - overlap, y: y + height))
-                            } else if index % 2 == 1 {
-                                border.move(to: CGPoint(x: x - overlap, y: y))
-                                border.addLine(to: CGPoint(x: x, y: y + height))
-                            } else {
-                                border.move(to: CGPoint(x: x, y: y))
-                                border.addLine(to: CGPoint(x: x - overlap, y: y + height))
-                            }
-                        }
-                        
-                        border.stroke()
-                        
-                    }
-                }
-                
-                finalImage = image
-                photoStripImageView.image = image
-                didCreatePhotoStrip = true
-                createPhotoStripButton.titleLabel?.text! = "Save to library"
-                
-            }
-        }
-        
-        func aspectFilledRect(for imageSize: CGSize, in targetRect: CGRect) -> CGRect {
-            let imageAspect = imageSize.width / imageSize.height
-            let targetAspect = targetRect.width / targetRect.height
-            var drawRect = targetRect
-            if imageAspect > targetAspect {
-                // Image is wider than target: scale by height, crop horizontally
-                let width = targetRect.height * imageAspect
-                let x = targetRect.origin.x - (width - targetRect.width) / 2
-                drawRect = CGRect(x: x, y: targetRect.origin.y, width: width, height: targetRect.height)
-            } else {
-                // Image is taller than target: scale by width, crop vertically
-                let height = targetRect.width / imageAspect
-                let y = targetRect.origin.y - (height - targetRect.height) / 2
-                drawRect = CGRect(x: targetRect.origin.x, y: y, width: targetRect.width, height: height)
-            }
-            return drawRect
-        } //chatgpt
-    }
     
-    extension ResultVC: PHPickerViewControllerDelegate {
-        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            dismiss(animated: true)
-            
-            listImage = []
-            let itemProviders = results.map { $0.itemProvider }
-            
-            for item in itemProviders {
-                if item.canLoadObject(ofClass: UIImage.self) {
-                    item.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                        guard let self = self else { return }
-                        if let image = image as? UIImage {
-                            DispatchQueue.main.async {
-                                self.listImage.append(image)
-                                self.drawResultImage()
-                            }
+    func aspectFilledRect(for imageSize: CGSize, in targetRect: CGRect) -> CGRect {
+        let imageAspect = imageSize.width / imageSize.height
+        let targetAspect = targetRect.width / targetRect.height
+        var drawRect = targetRect
+        if imageAspect > targetAspect {
+            // Image is wider than target: scale by height, crop horizontally
+            let width = targetRect.height * imageAspect
+            let x = targetRect.origin.x - (width - targetRect.width) / 2
+            drawRect = CGRect(x: x, y: targetRect.origin.y, width: width, height: targetRect.height)
+        } else {
+            // Image is taller than target: scale by width, crop vertically
+            let height = targetRect.width / imageAspect
+            let y = targetRect.origin.y - (height - targetRect.height) / 2
+            drawRect = CGRect(x: targetRect.origin.x, y: y, width: targetRect.width, height: height)
+        }
+        return drawRect
+    } //chatgpt
+}
+
+extension ResultVC: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true)
+        
+        listImage = []
+        let itemProviders = results.map { $0.itemProvider }
+        
+        for item in itemProviders {
+            if item.canLoadObject(ofClass: UIImage.self) {
+                item.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                    guard let self = self else { return }
+                    if let image = image as? UIImage {
+                        DispatchQueue.main.async {
+                            self.listImage.append(image)
+                            self.drawResultImage()
                         }
                     }
                 }
             }
         }
     }
-    
-    extension ResultVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            picker.dismiss(animated: true)
-        }
-        
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            picker.dismiss(animated: true)
-            
-            guard let image = info[.originalImage] as? UIImage else { return }
-            
-            listImage.append(image)
-            capturedCount += 1
-            
-            if let layoutCount = layout, layoutCount > 0, capturedCount < layoutCount {
-                let picker = UIImagePickerController()
-                picker.sourceType = .camera
-                picker.delegate = self
-                present(picker, animated: true)
-            } else {
-                drawResultImage()
-            }
-        }
-    }
+}
+
+//    extension ResultVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+//        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//            picker.dismiss(animated: true)
+//        }
+//
+//        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//            picker.dismiss(animated: true)
+//
+//            guard let image = info[.originalImage] as? UIImage else { return }
+//
+//            listImage.append(image)
+//            capturedCount += 1
+//
+//            if let layoutCount = layout, layoutCount > 0, capturedCount < layoutCount {
+////                let picker = UIImagePickerController()
+////                picker.sourceType = .camera
+////                picker.delegate = self
+////                present(picker, animated: true)
+//            } else {
+//                drawResultImage()
+//            }
+//        }
+//    }

@@ -22,14 +22,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bK6-VF-yK4">
-                    <rect key="frame" x="16" y="178" width="361" height="537"/>
+                    <rect key="frame" x="16" y="218" width="361" height="537"/>
                     <color key="backgroundColor" name="Blue3"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="537" id="x1D-od-HSh"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8jy-0m-U2Y">
-                    <rect key="frame" x="100.00000000000001" y="765" width="193.33333333333337" height="56"/>
+                    <rect key="frame" x="100.00000000000001" y="805" width="193.33333333333337" height="56"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="56" id="wet-yU-q6X"/>
                     </constraints>
@@ -46,12 +46,20 @@
                         <action selector="createPhotoStrip:" destination="-1" eventType="touchUpInside" id="efb-71-xS3"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your result will appear here!!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUg-RD-fXJ">
+                    <rect key="frame" x="66.333333333333343" y="150" width="260.33333333333326" height="24"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                    <color key="textColor" name="Blue1"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="KUg-RD-fXJ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="32" id="0SS-4C-bBP"/>
                 <constraint firstItem="8jy-0m-U2Y" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="0lf-Tu-iBQ"/>
-                <constraint firstItem="bK6-VF-yK4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="60" id="ei6-11-fCL"/>
+                <constraint firstItem="bK6-VF-yK4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="100" id="ei6-11-fCL"/>
+                <constraint firstItem="KUg-RD-fXJ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ghk-06-d0O"/>
                 <constraint firstItem="bK6-VF-yK4" firstAttribute="centerX" secondItem="8jy-0m-U2Y" secondAttribute="centerX" id="puk-BO-XjR"/>
                 <constraint firstItem="8jy-0m-U2Y" firstAttribute="top" secondItem="bK6-VF-yK4" secondAttribute="bottom" constant="50" id="xIs-aG-E3c"/>
                 <constraint firstItem="bK6-VF-yK4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="znz-Mi-H9E"/>

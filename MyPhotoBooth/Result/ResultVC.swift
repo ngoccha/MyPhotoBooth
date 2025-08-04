@@ -18,10 +18,14 @@ class ResultVC: UIViewController {
     
     private var finalImage: UIImage?
     private var didCreatePhotoStrip = false
+    private var didSaveToLibrary = false
+    
     var listImage: [UIImage] = [] {
         didSet {
             if (layout == 4 && listImage.count == 4) || (layout == 5 && listImage.count == 5) {
-                drawResultImage()
+                DispatchQueue.main.async { [weak self] in
+                    self?.drawResultImage()
+                }
             }
         }
     }
@@ -32,10 +36,7 @@ class ResultVC: UIViewController {
     }
     
     @IBAction func createPhotoStrip(_ sender: UIButton) {
-        if didCreatePhotoStrip, let savedImage = finalImage  {
-            UIImageWriteToSavedPhotosAlbum(savedImage, nil, nil, nil)
-        }
-        else {
+        if !didCreatePhotoStrip {
             listImage = []
             capturedCount = 0
             
@@ -49,6 +50,20 @@ class ResultVC: UIViewController {
                 picker.delegate = self
                 present(picker, animated: true)
             }
+            
+        } else if !didSaveToLibrary, let savedImage = finalImage {
+            UIImageWriteToSavedPhotosAlbum(savedImage, nil, nil, nil)
+            didSaveToLibrary = true
+            let attributed = NSAttributedString(
+                string: "Start again",
+                attributes: [
+                    .font: createPhotoStripButton.titleLabel?.font ?? UIFont.systemFont(ofSize: 20, weight: .semibold),
+                    .foregroundColor: createPhotoStripButton.titleLabel?.textColor ?? UIColor.blue1
+                ]
+            )
+            createPhotoStripButton.setAttributedTitle(attributed, for: .normal)
+        } else {
+            navigationController?.popToRootViewController(animated: true)
         }
     }
     
@@ -209,29 +224,6 @@ class ResultVC: UIViewController {
         }
     }
     
-//    func presentCameraVC() {
-//        let cameraVC = CameraVC()
-//        cameraVC.modalPresentationStyle = .fullScreen
-//
-//        cameraVC.onCapturePhoto = { [weak self] image in
-//            guard let self = self else { return }
-//
-//            self.listImage.append(contentsOf: image)
-//            self.capturedCount += 1
-//
-//            if let layoutCount = self.layout, self.capturedCount < layoutCount {
-////                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-//                    self.presentCameraVC()
-////                }
-//            } else {
-//                self.drawResultImage()
-//            }
-//        }
-//
-//        present(cameraVC, animated: true)
-//    }
-
-    
     func aspectFilledRect(for imageSize: CGSize, in targetRect: CGRect) -> CGRect {
         let imageAspect = imageSize.width / imageSize.height
         let targetAspect = targetRect.width / targetRect.height
@@ -288,10 +280,10 @@ extension ResultVC: PHPickerViewControllerDelegate {
 //            capturedCount += 1
 //
 //            if let layoutCount = layout, layoutCount > 0, capturedCount < layoutCount {
-////                let picker = UIImagePickerController()
-////                picker.sourceType = .camera
-////                picker.delegate = self
-////                present(picker, animated: true)
+//                let picker = UIImagePickerController()
+//                picker.sourceType = .camera
+//                picker.delegate = self
+//                present(picker, animated: true)
 //            } else {
 //                drawResultImage()
 //            }

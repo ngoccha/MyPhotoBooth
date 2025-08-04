@@ -19,7 +19,7 @@ class CameraVC: UIViewController {
     private var isUsingFrontCamera = true
     private var flashMode = AVCaptureDevice.FlashMode.auto
     private var hasCapturedPhoto = false
-   
+    
     var numberOfImages: Int?
     var currentCapturedImage: UIImage?
     var capturedImages: [UIImage] = []
@@ -44,7 +44,7 @@ class CameraVC: UIViewController {
     
     @IBAction func changeCameraButton(_ sender: Any) {
         captureSession.beginConfiguration()
-
+        
         if let currentInput = captureSession.inputs.first {
             captureSession.removeInput(currentInput)
         }
@@ -94,29 +94,31 @@ class CameraVC: UIViewController {
     
     @IBAction func chooseButton(_ sender: Any) {
         guard let selectedImage = currentCapturedImage else { return }
-
-            capturedImages.append(selectedImage)
-            currentCapturedImage = nil // Clear ảnh tạm
-
-            if let expectedCount = numberOfImages, capturedImages.count == expectedCount {
-                let resultVC = ResultVC()
-                onCapturePhoto?(capturedImages)
-                navigationController?.pushViewController(resultVC, animated: true)
-            } else {
-                // Reset preview để tiếp tục chụp ảnh tiếp
-                cameraPreviewView.subviews.forEach { $0.removeFromSuperview() }
-                cameraPreviewView.layer.addSublayer(previewLayer)
-                previewLayer.frame = cameraPreviewView.bounds
-
-                DispatchQueue.global(qos: .userInitiated).async {
-                    self.captureSession.startRunning()
-                }
-
-                hasCapturedPhoto = false
+        
+        capturedImages.append(selectedImage)
+        currentCapturedImage = nil
+        hasCapturedPhoto = false
+        
+        if let expectedCount = numberOfImages, capturedImages.count == expectedCount {
+            captureSession.stopRunning()
+            
+            let resultVC = ResultVC()
+            resultVC.layout = expectedCount
+            resultVC.isCamera = true
+            resultVC.listImage = capturedImages
+            
+            navigationController?.pushViewController(resultVC, animated: true)
+        } else {
+            cameraPreviewView.subviews.forEach { $0.removeFromSuperview() }
+            cameraPreviewView.layer.addSublayer(previewLayer)
+            previewLayer.frame = cameraPreviewView.bounds
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.captureSession.startRunning()
             }
+            
+            hasCapturedPhoto = false
+        }
     }
-    
-    var onCapturePhoto: (([UIImage]) -> Void)?
 }
 
 //MARK: setup config ----
@@ -149,15 +151,14 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
             captureSession.addInput(input)
         }
         
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession) //tạo layer để hiển thị ảnh từ session
-        
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         if captureSession.canAddOutput(output) {
             captureSession.addOutput(output)
         }
         
         previewLayer.videoGravity = .resizeAspectFill
         previewLayer.frame = cameraPreviewView.bounds
-        cameraPreviewView.layer.addSublayer(previewLayer) //thêm layer vào giao diện
+        cameraPreviewView.layer.addSublayer(previewLayer)
         previewLayer.cornerRadius = 20
         
         DispatchQueue.global(qos: .userInitiated).async {
@@ -178,12 +179,8 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
         }
         
         hasCapturedPhoto = true
-        
         currentCapturedImage = image
-//                if let image = image {
-//                    onCapturePhoto?(image)
-//                }
-        
+
         captureSession.stopRunning()
         previewLayer.removeFromSuperlayer()
         
@@ -193,7 +190,6 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
         imageView.layer.cornerRadius = 20
         imageView.clipsToBounds = true
         
-        // Xoá preview cũ (nếu có) trước khi thêm mới
         cameraPreviewView.subviews.forEach { $0.removeFromSuperview() }
         cameraPreviewView.addSubview(imageView)
     }

@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyPhotoBoothVC" customModule="MyPhotoBooth" customModuleProvider="target">
             <connections>
+                <outlet property="backButton" destination="bdJ-BZ-2Jc" id="ZIH-uM-nKa"/>
                 <outlet property="chooseCameraStackView" destination="0Wg-JZ-el7" id="1JE-ya-Rig"/>
                 <outlet property="chooseLayoutStackView" destination="qJo-52-Oey" id="A7R-GT-wvb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="fnV-Lr-tBq"/>
@@ -208,18 +209,30 @@
                         <constraint firstItem="0Wg-JZ-el7" firstAttribute="centerX" secondItem="Mpk-hT-7dH" secondAttribute="centerX" id="zie-CN-kkX"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bdJ-BZ-2Jc">
+                    <rect key="frame" x="31.999999999999996" y="150" width="39.666666666666657" height="34.333333333333343"/>
+                    <color key="tintColor" name="Blue1"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="chevron.left" catalog="system"/>
+                    <connections>
+                        <action selector="backButton:" destination="-1" eventType="touchUpInside" id="egh-Gd-Bat"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" name="Background"/>
             <constraints>
                 <constraint firstItem="Mpk-hT-7dH" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PwZ-kF-4BY"/>
+                <constraint firstItem="bdJ-BZ-2Jc" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="32" id="Tte-qO-b7n"/>
                 <constraint firstItem="Mpk-hT-7dH" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="UPU-ip-kJP"/>
+                <constraint firstItem="bdJ-BZ-2Jc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="pEB-gb-7GS"/>
             </constraints>
             <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
         </view>
     </objects>
     <resources>
         <image name="camera.viewfinder" catalog="system" width="128" height="115"/>
+        <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="photo" catalog="system" width="128" height="93"/>
         <image name="photo.on.rectangle.angled" catalog="system" width="128" height="98"/>
         <image name="photo.stack" catalog="system" width="126" height="128"/>

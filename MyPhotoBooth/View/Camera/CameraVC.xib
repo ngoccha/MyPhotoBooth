@@ -50,7 +50,7 @@
                                                 <constraint firstAttribute="width" secondItem="9ay-Kg-ZGr" secondAttribute="height" id="9cp-6Y-Kvn"/>
                                             </constraints>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" image="Flash auto"/>
+                                            <state key="normal" image="icFlashAuto"/>
                                             <connections>
                                                 <action selector="flashButton:" destination="-1" eventType="touchUpInside" id="73d-3I-eDo"/>
                                             </connections>
@@ -83,7 +83,7 @@
                                                 <constraint firstAttribute="height" constant="76" id="Us5-Vs-fMq"/>
                                             </constraints>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" image="Take"/>
+                                            <state key="normal" image="icTake"/>
                                             <connections>
                                                 <action selector="shutterButton:" destination="-1" eventType="touchUpInside" id="4Lu-ID-SgT"/>
                                             </connections>
@@ -134,9 +134,9 @@
         </view>
     </objects>
     <resources>
-        <image name="Flash auto" width="24" height="24"/>
-        <image name="Take" width="76" height="76"/>
         <image name="arrow.triangle.2.circlepath.camera.fill" catalog="system" width="128" height="93"/>
+        <image name="icFlashAuto" width="24" height="24"/>
+        <image name="icTake" width="76" height="76"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="Background">
             <color red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

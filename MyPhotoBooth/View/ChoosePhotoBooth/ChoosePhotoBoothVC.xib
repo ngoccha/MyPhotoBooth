@@ -24,7 +24,7 @@
                     <color key="textColor" name="Blue1"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Example" translatesAutoresizingMaskIntoConstraints="NO" id="HeW-GV-5QH">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="exampleImage" translatesAutoresizingMaskIntoConstraints="NO" id="HeW-GV-5QH">
                     <rect key="frame" x="10" y="295" width="373" height="373"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="373" id="kUK-yM-CgE"/>
@@ -66,7 +66,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Example" width="1080" height="1080"/>
+        <image name="exampleImage" width="1080" height="1080"/>
         <namedColor name="Background">
             <color red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

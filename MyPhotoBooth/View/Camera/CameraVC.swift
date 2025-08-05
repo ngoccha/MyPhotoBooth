@@ -80,15 +80,15 @@ class CameraVC: UIViewController {
     @IBAction func flashButton(_ sender: Any) {
         if flashMode == .auto {
             flashMode = .on
-            flashButton.setImage(#imageLiteral(resourceName: "Flash on"), for: .normal)
+            flashButton.setImage(#imageLiteral(resourceName: "icFlashOn"), for: .normal)
         }
         else if flashMode == .on {
             flashMode = .off
-            flashButton.setImage(#imageLiteral(resourceName: "Flash off"), for: .normal)
+            flashButton.setImage(#imageLiteral(resourceName: "icFlashOff"), for: .normal)
         }
         else {
             flashMode = .auto
-            flashButton.setImage(#imageLiteral(resourceName: "Flash auto"), for: .normal)
+            flashButton.setImage(#imageLiteral(resourceName: "icFlashAuto"), for: .normal)
         }
     }
     

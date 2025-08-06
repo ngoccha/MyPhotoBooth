@@ -29,6 +29,25 @@ class ResultVC: UIViewController {
             }
         }
     }
+    
+    init(listImage: [UIImage] = [], layout: Int? = nil, isCamera: Bool? = nil) {
+        super.init(nibName: "ResultVC", bundle: nil)
+        self.layout = layout
+        self.isCamera = isCamera
+        self.listImage = listImage
+        
+        if (layout == 4 && listImage.count == 4) || (layout == 5 && listImage.count == 5) {
+            DispatchQueue.main.async { [weak self] in
+                self?.drawResultImage()
+            }
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
     private var capturedCount = 0
     
     override func viewDidLoad() {
@@ -255,7 +274,7 @@ extension ResultVC: PHPickerViewControllerDelegate {
                 item.loadObject(ofClass: UIImage.self) { [weak self] image, error in
                     guard let self = self else { return }
                     if let image = image as? UIImage {
-                        DispatchQueue.main.async {
+                        DispatchQueue.main.sync {
                             self.listImage.append(image)
                             self.drawResultImage()
                         }

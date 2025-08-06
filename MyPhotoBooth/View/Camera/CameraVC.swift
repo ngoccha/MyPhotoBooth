@@ -10,6 +10,8 @@ import AVFoundation
 
 class CameraVC: UIViewController {
     
+    
+    @IBOutlet weak var numberOfImageTakenLabel: UILabel!
     @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var cameraPreviewView: UIView!
     
@@ -28,6 +30,7 @@ class CameraVC: UIViewController {
         super.viewDidLoad()
         
         checkCameraPermission()
+        numberOfImageTakenLabel.text = "\(capturedImages.count)/\(String(describing: numberOfImages ?? 0))"
     }
     
     override func viewDidLayoutSubviews() {
@@ -99,6 +102,8 @@ class CameraVC: UIViewController {
         currentCapturedImage = nil
         hasCapturedPhoto = false
         
+        numberOfImageTakenLabel.text = "\(capturedImages.count)/\(String(describing: numberOfImages ?? 0))"
+
         if let expectedCount = numberOfImages, capturedImages.count == expectedCount {
             captureSession.stopRunning()
             
@@ -180,7 +185,7 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
         
         hasCapturedPhoto = true
         currentCapturedImage = image
-
+        
         captureSession.stopRunning()
         previewLayer.removeFromSuperlayer()
         

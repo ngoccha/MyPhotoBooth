@@ -73,14 +73,7 @@ class ResultVC: UIViewController {
         } else if !didSaveToLibrary, let savedImage = finalImage {
             UIImageWriteToSavedPhotosAlbum(savedImage, nil, nil, nil)
             didSaveToLibrary = true
-            let attributed = NSAttributedString(
-                string: "Start again",
-                attributes: [
-                    .font: createPhotoStripButton.titleLabel?.font ?? UIFont.systemFont(ofSize: 20, weight: .semibold),
-                    .foregroundColor: createPhotoStripButton.titleLabel?.textColor ?? UIColor.blue1
-                ]
-            )
-            createPhotoStripButton.setAttributedTitle(attributed, for: .normal)
+            setButtonTitle("Start again")
         } else {
             navigationController?.popToRootViewController(animated: true)
         }
@@ -135,8 +128,7 @@ class ResultVC: UIViewController {
             finalImage = image
             photoStripImageView.image = image
             didCreatePhotoStrip = true
-            createPhotoStripButton.titleLabel?.text! = "Save to library"
-            
+            setButtonTitle("Save to Library")
         }  else {
             
             guard listImage.count == 5 else { return }
@@ -238,11 +230,21 @@ class ResultVC: UIViewController {
             finalImage = image
             photoStripImageView.image = image
             didCreatePhotoStrip = true
-            createPhotoStripButton.titleLabel?.text! = "Save to library"
-            
+            setButtonTitle("Save to Library")
         }
     }
     
+    private func setButtonTitle(_ title: String) {
+        let attributed = NSAttributedString(
+            string: title,
+            attributes: [
+                .font: createPhotoStripButton.titleLabel?.font ?? UIFont.systemFont(ofSize: 20, weight: .semibold),
+                .foregroundColor: createPhotoStripButton.titleLabel?.textColor ?? UIColor.blue1
+            ]
+        )
+        createPhotoStripButton.setAttributedTitle(attributed, for: .normal)
+    }
+
     func aspectFilledRect(for imageSize: CGSize, in targetRect: CGRect) -> CGRect {
         let imageAspect = imageSize.width / imageSize.height
         let targetAspect = targetRect.width / targetRect.height

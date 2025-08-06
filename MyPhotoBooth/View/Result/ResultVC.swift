@@ -22,6 +22,7 @@ class ResultVC: UIViewController {
     
     var listImage: [UIImage] = [] {
         didSet {
+//            guard self.isViewLoaded else { return }
             if (layout == 4 && listImage.count == 4) || (layout == 5 && listImage.count == 5) {
                 DispatchQueue.main.async { [weak self] in
                     self?.drawResultImage()
@@ -35,12 +36,6 @@ class ResultVC: UIViewController {
         self.layout = layout
         self.isCamera = isCamera
         self.listImage = listImage
-        
-        if (layout == 4 && listImage.count == 4) || (layout == 5 && listImage.count == 5) {
-            DispatchQueue.main.async { [weak self] in
-                self?.drawResultImage()
-            }
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -52,6 +47,8 @@ class ResultVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //có thể sử dụng combine để nhận tín hiệu đã load view sau đó mới xử lý UI
+        self.drawResultImage()
     }
     
     @IBAction func createPhotoStrip(_ sender: UIButton) {

@@ -22,24 +22,27 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Sf7-i0-Nua">
-                    <rect key="frame" x="32" y="38" width="311" height="597"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Sf7-i0-Nua">
+                    <rect key="frame" x="32" y="40" width="291.5" height="595.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your result will appear here!!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KUg-RD-fXJ">
-                            <rect key="frame" x="25.5" y="0.0" width="260.5" height="71.5"/>
+                            <rect key="frame" x="15.5" y="0.0" width="260.5" height="23.5"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="23.5" id="i8m-T7-ydR"/>
+                            </constraints>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                             <color key="textColor" name="Blue1"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bK6-VF-yK4">
-                            <rect key="frame" x="24" y="91.5" width="263" height="429.5"/>
+                            <rect key="frame" x="0.0" y="43.5" width="291.5" height="476"/>
                             <color key="backgroundColor" name="Blue3"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="bK6-VF-yK4" secondAttribute="height" multiplier="329:537" id="f7M-Ou-ZgZ"/>
                             </constraints>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8jy-0m-U2Y">
-                            <rect key="frame" x="59" y="541" width="193.5" height="56"/>
+                            <rect key="frame" x="49" y="539.5" width="193.5" height="56"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="wet-yU-q6X"/>
                             </constraints>
@@ -57,14 +60,17 @@
                             </connections>
                         </button>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="bK6-VF-yK4" firstAttribute="leading" secondItem="Sf7-i0-Nua" secondAttribute="leading" id="pHH-vr-Ghp"/>
+                    </constraints>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Sf7-i0-Nua" secondAttribute="bottom" constant="32" id="0lE-lZ-qkW"/>
-                <constraint firstItem="Sf7-i0-Nua" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="18" id="etT-fu-Yf3"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Sf7-i0-Nua" secondAttribute="trailing" constant="32" id="kM8-fv-bXy"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Sf7-i0-Nua" secondAttribute="bottom" constant="20" id="0lE-lZ-qkW"/>
+                <constraint firstItem="Sf7-i0-Nua" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="bfS-pg-h39"/>
+                <constraint firstItem="Sf7-i0-Nua" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="etT-fu-Yf3"/>
                 <constraint firstItem="Sf7-i0-Nua" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="32" id="lzF-sK-ZJj"/>
             </constraints>
             <point key="canvasLocation" x="130.40000000000001" y="-12.143928035982009"/>
